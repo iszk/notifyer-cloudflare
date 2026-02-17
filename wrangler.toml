@@ -1,0 +1,19 @@
+name = "notifyer"
+main = "src/index.ts"
+compatibility_date = "2025-01-01"
+account_id = "73b08b16d5d3cd7cb3dc7c98012f0079"
+
+[observability]
+enabled = false
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+persist = true
+invocation_logs = true
+
+[observability.traces]
+enabled = false
+persist = true
+head_sampling_rate = 1
