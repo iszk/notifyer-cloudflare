@@ -36,7 +36,7 @@ app.post('/sms', async (c) => {
 
     if (c.env.DISCORD_WEBHOOK_SMS) {
         const payload: DiscordWebhookPayload = {
-            content: `From: ${number} / ${sim}\n${message}`,
+            content: `${message}\n\n--\nFrom: ${number}\nSIM: ${sim}`,
         }
         await sendWebhook(c.env.DISCORD_WEBHOOK_SMS, payload)
         resp['send_to_discord'] = true
