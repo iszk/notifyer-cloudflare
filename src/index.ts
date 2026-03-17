@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { sendWebhook, DiscordWebhookPayload } from "./discord"
+import { SKIP_DISCORD_NUMBERS } from './skip-discord-numbers'
 
 type Bindings = {
     API_KEY: string
@@ -29,12 +30,14 @@ app.post('/sms', async (c) => {
     const message = typeof body.message === 'string' ? body.message : ''
     const number = typeof body.number === 'string' ? body.number : ''
     const sim = typeof body.sim === 'string' ? body.sim : ''
+    const shouldSkipDiscord = SKIP_DISCORD_NUMBERS.has(number)
 
     console.log('message:', message)
     console.log('number:', number)
     console.log('sim:', sim)
+    console.log('skip_discord:', shouldSkipDiscord)
 
-    if (c.env.DISCORD_WEBHOOK_SMS) {
+    if (c.env.DISCORD_WEBHOOK_SMS && !shouldSkipDiscord) {
         const payload: DiscordWebhookPayload = {
             content: `${message}\n\n--\nFrom: ${number}\nSIM: ${sim}`,
         }

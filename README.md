@@ -33,6 +33,19 @@ mise exec node@22 -- npm run dev
 - Health check: `GET /health`
 - Ping: `GET /ping`
 
+## Discord 送信をスキップする番号
+
+Discord に送信しない番号は [src/skip-discord-numbers.ts](src/skip-discord-numbers.ts) の `SKIP_DISCORD_NUMBERS` で管理します。
+
+```ts
+export const SKIP_DISCORD_NUMBERS = new Set<string>([
+	'09011112222',
+	'+819012345678',
+])
+```
+
+- `number` と完全一致した場合に Discord 送信をスキップします。
+
 ## Cloudflare 側での実行確認
 
 API Token 方式のみを利用します（ローカル・CI で共通化するため）。
